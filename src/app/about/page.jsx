@@ -1,17 +1,17 @@
 
+"use client"
+
+import React, { useState } from 'react';
 import Link from 'next/link';
-import React from 'react';
+import ServiceNav from '@/app/components/ServiceNav'
+import { imageData } from '@/app/components/portfolioData';
+import Footer from '../components/Footer';
 
 const About = () => {
   
-  const services = [
-    'Wedding and Pre Wedding',
-    'Male Grooming',
-    'Editorial',
-    'Birthday Shoot',
-    'Music/Commercial shoot',
-    'Jewellery'
-  ];
+  const [hoveredImage, setHoveredImage] = useState(null);
+  const [selectedService, setSelectedService] = useState('Wedding and Pre Wedding');
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -26,26 +26,22 @@ const About = () => {
       <div className="container mx-auto px-4">
         {/* Mobile Services */}
         <div className="md:hidden overflow-x-auto mb-8">
-          <ul className="flex space-x-6 whitespace-nowrap pb-4 ">
-            {services.map((service, index) => (
-              <li key={index} className="text-xl text-gray-600 hover:text-black cursor-pointer flex-shrink-0 transition-all duration-300">
-                {service}
-              </li>
-            ))}
-          </ul>
+          <ServiceNav
+            selectedService={selectedService}
+            onServiceSelect={setSelectedService}
+            variant="mobile"
+          />
         </div>
 
         {/* Desktop Layout */}
         <div className="flex gap-8">
           {/* Desktop Services */}
-          <div className="hidden md:block w-1/4">
-            <ul className="space-y-4 text-gray-600 sticky top-4">
-              {services.map((service, index) => (
-                <li key={index} className="hover:text-black text-lg cursor-pointer transition-all duration-300 hover:translate-x-2">
-                  {service}
-                </li>
-              ))}
-            </ul>
+          <div className="hidden md:block w-1/6">
+            <ServiceNav
+              selectedService={selectedService}
+              onServiceSelect={setSelectedService}
+              variant="desktop"
+            />
           </div>
 
           {/* Image Grid */}
@@ -81,6 +77,8 @@ const About = () => {
             </div>
           </div>
         </div>
+
+        <Footer/>
       </div>
     </div>
   );
